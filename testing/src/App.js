@@ -1,10 +1,14 @@
 import './App.css';
 import EmployForm from './EmployForm';
 import EmployTable from './EmployFormTable';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [employData, setEmployData] = useState();
+  useEffect(()=>{
+    if(!localStorage.getItem('data')) return
+    setEmployData(JSON.parse(localStorage.getItem('data')))
+  },[])
   return (
     <div>
       <EmployForm 
@@ -12,7 +16,9 @@ function App() {
       setEmployData={setEmployData}
       />
       <EmployTable
-       employData={employData}/>
+       employData={employData}
+      //  search={search}
+       />
     </div>
   );
 }

@@ -11,13 +11,13 @@ const EmployForm = ({ setEmployData, employData }) => {
   });
 
   const { name, age, salary, image } = formData;
-  const [search, setSearch] = useState('');
  
-  const [uploadImg, setUploadImg] = useState([]);
+ 
+  // const [uploadImg, setUploadImg] = useState([]);
   
-  const handleImg = (e) => {
-    setUploadImg([...e.target.value]);
-  };
+  // const handleImg = (e) => {
+  //   setUploadImg([...e.target.value]);
+  // };
   const handleFormInput = (e) => {
     setFormData({
       ...formData,
@@ -25,9 +25,7 @@ const EmployForm = ({ setEmployData, employData }) => {
     });
   };
 
-  const handleSearch = () => {
-    employData?.filter((item)=>item.name.includes(search))
-  };
+  
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,41 +37,42 @@ const EmployForm = ({ setEmployData, employData }) => {
       localStorage.setItem("data", JSON.stringify([formData]));
     }
     setEmployData(JSON.parse(localStorage.getItem("data")));
+    setFormData({
+      name: "",
+      age: "",
+      salary: "",
+      image: "",
+    })
   };
 
-  
+
 
   return (
     <>
-      <div className="search_bar">
-        <input type="text" value={search} placeholder="search" onChange={(e)=>{setSearch(e.target.value)}} />
-        <button className="submit_btn" onClick={handleSearch} >
-          Search
-        </button>
-      </div>
+      
 
-      {employData
-      ?.filter((item)=>item.includes(search))
+      {/* {employData
+      ?.filter((item)=>item.name.includes(search))
       ?.map((item) =>{
           <div>{item}</div>
       })
-      }
+      } */}
       <div className="form_input">
         <div className="input_box">
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" id={name} onChange={handleFormInput} />
+          <input type="text" name="name" value={name} onChange={handleFormInput} />
         </div>
 
         <div className="input_box">
           <label htmlFor="age">Age</label>
-          <input type="number" name="age" id={age} onChange={handleFormInput} />
+          <input type="number" name="age" value={age} onChange={handleFormInput} />
         </div>
         <div className="input_box">
           <label htmlFor="salary">Salary</label>
           <input
             type="text"
             name="salary"
-            id={salary}
+            value={salary}
             onChange={handleFormInput}
           />
         </div>
@@ -83,8 +82,8 @@ const EmployForm = ({ setEmployData, employData }) => {
             type="file"
             accept="image/*"
             name="picture"
-            id={image}
-            onChange={handleImg}
+            value={image}
+            onChange={handleFormInput}
           />
         </div>
 
